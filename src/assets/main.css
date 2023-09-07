@@ -1,0 +1,93 @@
+@import './base.css';
+/* CSS Document */
+
+/* 公共样式表 */
+body {
+  text-align: left;
+  font-family: "宋体", arial;
+  margin: 0;
+  padding: 0;
+  background: #FFF;
+  font-size: 12px;
+  color: #666666;
+}
+
+div,
+form,
+img,
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: bottom;
+}
+
+li,
+dl {
+  list-style-type: none;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+p {
+  margin: 0;
+  padding: 0
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+/* 公共样式中的默认超链接 */
+
+/*link:连接平常的状态*/
+a:link {
+  color: #000;
+  text-decoration: none;
+}
+
+/*visited:连接被访问过之后*/
+a:visited {
+  color: #0C0;
+  text-decoration: none;
+}
+
+/*hover:鼠标放到连接上的时候*/
+a:hover {
+  color: #FFFF66;
+  text-decoration: underline;
+}
+
+/*active:连接被按下的时候*/
+a:active {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/* 系统样式表 */
+
+
+/* 自定义样式表 */
+
+.bigone {
+  margin: 0 auto;
+  width: 1003px;
+  height: 800px;
+  background: #CCC;
+}
