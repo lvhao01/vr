@@ -2,7 +2,11 @@
   球型形贴图
  -->
 <template>
-  <div ref="Dom"></div>
+  <div ref="Dom" id="con"></div>
+
+  <div class="pop" v-if="popIsShow" @click="popIsShow = false">
+    这里是视频 点击关闭
+  </div>
 </template>
 
 <script setup>
@@ -48,6 +52,32 @@ loader.load(
     scene.add(sphere); // 放入场景
   }
 );
+//辅组坐标系
+const axesHelper = new THREE.AxesHelper(250);
+scene.add(axesHelper);
+
+// 点的材质  点击点
+let poinTtxture = new THREE.TextureLoader().load("./images/txxxx.jpg");
+const material = new THREE.SpriteMaterial({
+  map: poinTtxture,
+  color: 0xffffff,
+});
+const sprite = new THREE.Sprite(material);
+sprite.scale.set(0.05, 0.05, 0.1);
+sprite.position.set(0.3, 0.02, -0.35);
+scene.add(sprite);
+
+
+// 点击点2
+let poinTtxture2 = new THREE.TextureLoader().load("./images/lgo.png");
+const material2 = new THREE.SpriteMaterial({
+  map: poinTtxture2,
+  color: 0xffffff,
+});
+const sprite2 = new THREE.Sprite(material2);
+sprite2.scale.set(0.05, 0.05, 0.05);
+sprite2.position.set(-0.34, 0.02, -0.23);
+scene.add(sprite2);
 
 // 控制器函数 camera相机 dom实例
 const initControls = (camera, dom) => {
@@ -64,11 +94,52 @@ const initControls = (camera, dom) => {
   return controls;
 };
 
+// 点击事件
+const popIsShow = ref(false);
+const onzhuce = () => {
+  // this.$refs.container.addEventListener('mousemove', this.onMouseMove, false)
+  document.querySelector("#con").addEventListener("click", (event) => {
+    event.preventDefault();
+    let reycaster = new THREE.Raycaster(); //光线投射  光线投射用于进行鼠标拾取
+    let mouse = new THREE.Vector2(); //创建二维向量
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    // 通过鼠标位置计算出raycaster;
+    reycaster.setFromCamera(mouse, camera);
+    // 计算raycaster直线和场景中物体的相交点;
+    // let intersects = reycaster.intersectObjects(scene.children);
+    let intersects = reycaster.intersectObjects([sprite]);
+    if (intersects.length > 0) {
+      popIsShow.value = true;
+    }
+    let intersects2 = reycaster.intersectObjects([sprite2]);
+    if (intersects2.length > 0) {
+      // 切换场景
+      alert("切换场景")
+    }
+  });
+};
+
 onMounted(() => {
   // 添加控制器 camera相机 dom实例
   initControls(camera, Dom.value);
   // 渲染器放入页面
   Dom.value.appendChild(renderer.domElement);
   render(); // 开始渲染
+
+  // 点击事件
+  onzhuce();
 });
 </script>
+
+<style>
+.pop {
+  position: fixed;
+  z-index: 10;
+  left: 40%;
+  top: 20%;
+  background-color: #fff;
+  width: 400px;
+  height: 300px;
+}
+</style>
